@@ -14,7 +14,8 @@
       "collection": "Collection",
       "developers": "Developers",
       "genres": "Genres",
-      "playStatus": "Play Status"
+      "playStatus": "Play Status",
+      "scoreSource": "Score Source"
     }
   },
   "sortingControls": {
@@ -45,6 +46,10 @@
     },
     "playStatus": {
       "adjustOrder": "Adjust Order"
+    },
+    "scoreSource": {
+      "personal": "Personal score",
+      "empty": "No score"
     },
     "overrideCollectionSort": "Override Collection Sort",
     "empty": {

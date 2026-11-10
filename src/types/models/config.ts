@@ -90,6 +90,7 @@ export interface configDocs {
         | 'metadata.genres'
         | 'metadata.developers'
         | 'record.playStatus'
+        | 'record.scoreSource'
       highlightLocalGames: boolean
       warnInvalidGamePaths: boolean
       showRecentGames: boolean

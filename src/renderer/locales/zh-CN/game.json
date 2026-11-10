@@ -14,7 +14,8 @@
       "collection": "收藏",
       "developers": "开发商",
       "genres": "类别",
-      "playStatus": "游玩状态"
+      "playStatus": "游玩状态",
+      "scoreSource": "评分来源"
     }
   },
   "sortingControls": {
@@ -45,6 +46,10 @@
     },
     "playStatus": {
       "adjustOrder": "调整顺序"
+    },
+    "scoreSource": {
+      "personal": "个人评分",
+      "empty": "暂无评分"
     },
     "overrideCollectionSort": "覆盖收藏排序",
     "empty": {

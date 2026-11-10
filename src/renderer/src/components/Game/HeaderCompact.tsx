@@ -48,7 +48,7 @@ export function HeaderCompact({
 
   return (
     <div className={cn('flex-col flex gap-5 px-7 py-5 pl-6 pt-6 relative mb-5', className)}>
-      <div className="flex flex-row gap-1 h-[220px] justify-between items-start">
+      <div className="flex flex-row flex-wrap gap-1 min-h-[220px] justify-between items-stretch">
         {/* Game cover image */}
         {showCover && (
           <ContextMenu>
@@ -80,9 +80,9 @@ export function HeaderCompact({
         )}
 
         {/* Main Content */}
-        <div className="flex flex-col gap-3 grow overflow-hidden items-start justify-between h-full">
+        <div className="flex flex-col gap-3 flex-1 min-w-[min(100%,222px)] items-start justify-between">
           {/* Top Area: Game Name */}
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 min-w-0 w-full">
             <div
               className={cn(
                 'font-bold text-2xl text-accent-foreground cursor-pointer select-none text-shadow-lg break-all group'
@@ -161,12 +161,12 @@ export function HeaderCompact({
               'flex flex-row justify-between items-end duration-300 select-none pb-1 w-full'
             )}
           >
-            <div className={cn('flex flex-row gap-3 items-end z-20')}>
+            <div className={cn('flex flex-row flex-wrap gap-3 items-end z-20 max-w-full')}>
               {/* Start/Stop game button */}
               {runningGames.includes(gameId) ? (
-                <StopGame gameId={gameId} className={cn('w-[170px] h-[40px]')} />
+                <StopGame gameId={gameId} className={cn('w-[170px] max-w-full h-[40px]')} />
               ) : (
-                <StartGame gameId={gameId} className={cn('w-[170px] h-[40px]')} />
+                <StartGame gameId={gameId} className={cn('w-[170px] max-w-full h-[40px]')} />
               )}
 
               {/* Configuration button */}

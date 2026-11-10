@@ -66,7 +66,10 @@ export const PositionButton = React.memo(function PositionButton({
 
     if (currentGroupId) {
       // The pathname is double-encoded, so it needs to be decoded again
-      const [groupKey, groupValue] = decodeURIComponent(currentGroupId).split(':')
+      const decodedGroupId = decodeURIComponent(currentGroupId)
+      const separator = decodedGroupId.indexOf(':')
+      const groupKey = decodedGroupId.slice(0, separator)
+      const groupValue = decodedGroupId.slice(separator + 1)
       result.selector = `[data-game-id="${currentGameId}"][data-group-id="${currentGroupId}"]`
 
       const target = document.querySelector(result.selector)

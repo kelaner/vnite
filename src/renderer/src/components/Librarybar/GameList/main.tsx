@@ -5,6 +5,7 @@ import { PlayStatusGames } from './PlayStatusGames'
 import { FilterGame } from './FilterGame'
 import { Others } from './Others'
 import { Search } from './Search'
+import { ScoreSourceGames } from './ScoreSourceGames'
 
 export function GameList({
   selectedGroup,
@@ -26,6 +27,9 @@ export function GameList({
   }
   if (selectedGroup === 'record.playStatus') {
     return <PlayStatusGames />
+  }
+  if (selectedGroup === 'record.scoreSource') {
+    return <ScoreSourceGames />
   }
 
   return <Others fieldName={selectedGroup as any} />

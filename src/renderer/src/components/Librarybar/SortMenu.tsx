@@ -18,6 +18,8 @@ import { useConfigState } from '~/hooks'
 import { useGameCollectionStore } from '~/stores'
 import { filterGames, getAllValuesInKey, useVisibleGameIds } from '~/stores/game'
 import { cn } from '~/utils'
+import { useGameRegistry } from '~/stores/game/gameRegistry'
+import { getScoreSourceGroups } from './GameList/scoreSourceGroups'
 import { useGameListStore, usePlayStatusOrderStore } from './store'
 
 export function SortMenu({
@@ -60,6 +62,10 @@ export function SortMenu({
       if (visibleGameIds.some((gameId) => !collectedGameIds.has(gameId))) {
         values.push('__empty__')
       }
+    } else if (selectedGroup === 'record.scoreSource') {
+      values = Object.keys(
+        getScoreSourceGroups(visibleGameIds, useGameRegistry.getState().gameMetaIndex)
+      )
     } else if (selectedGroup === 'record.playStatus') {
       values = getAllValuesInKey('record.playStatus', visibleGameIds)
     } else if (selectedGroup === 'metadata.developers' || selectedGroup === 'metadata.genres') {
@@ -142,6 +148,9 @@ export function SortMenu({
                 <SelectItem value="metadata.genres">{t('librarybar.groups.genres')}</SelectItem>
                 <SelectItem value="record.playStatus">
                   {t('librarybar.groups.playStatus')}
+                </SelectItem>
+                <SelectItem value="record.scoreSource">
+                  {t('librarybar.groups.scoreSource')}
                 </SelectItem>
               </SelectContent>
             </Select>
