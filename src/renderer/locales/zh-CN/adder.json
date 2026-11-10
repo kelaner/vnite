@@ -49,6 +49,7 @@
         "recognizing": "识别游戏中…",
         "recognized": "识别游戏成功",
         "invalidId": "无效ID",
+        "bangumiUnavailable": "Bangumi 条目不存在或受访问限制，请检查账号设置和访问令牌。",
         "recognizeError": "识别游戏失败: {{message}}",
         "selectGamePath": "请选择游戏路径",
         "adding": "正在添加游戏…",

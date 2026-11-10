@@ -1,4 +1,5 @@
 import { METADATA_EXTRA_PREDEFINED_KEYS } from '@appTypes/models'
+import { getBangumiToken } from '../../../../core/ipc/bangumiToken'
 import { GameList, GameMetadata, ScraperIdentifier } from '@appTypes/utils'
 import i18next from 'i18next'
 import { isHttpError } from '../../errors'
@@ -101,7 +102,7 @@ async function fetchBangumi<T>(
     url.searchParams.append(key, String(value))
   })
 
-  const apiKey = import.meta.env.VITE_BANGUMI_API_KEY || ''
+  const apiKey = (await getBangumiToken()) || import.meta.env.VITE_BANGUMI_API_KEY || ''
 
   const response = await fetch(url.toString(), {
     headers: {

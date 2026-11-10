@@ -135,7 +135,13 @@ export function Search({ className }: { className?: string }): React.JSX.Element
           value: inputId
         })
         if (!result) {
-          throw new Error(t('gameAdder.search.notifications.invalidId'))
+          throw new Error(
+            dataSource === 'bangumi'
+              ? t('gameAdder.search.notifications.bangumiUnavailable', {
+                  defaultValue: 'Bangumi 条目不存在或受访问限制，请检查账号设置和访问令牌。'
+                })
+              : t('gameAdder.search.notifications.invalidId')
+          )
         }
         setDataSourceId(inputId)
         setCurrentPage('backgrounds')

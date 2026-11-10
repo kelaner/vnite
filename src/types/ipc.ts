@@ -77,6 +77,9 @@ type MainIpcEvents =
     }
   | {
       // Handler events (request-response communication from renderer to main)
+      'bangumi-token:get-status': () => { available: boolean; configured: boolean }
+      'bangumi-token:set': (token: string) => void
+      'bangumi-token:clear': () => void
 
       'system:select-path-dialog': (
         properties: NonNullable<Electron.OpenDialogOptions['properties']>,

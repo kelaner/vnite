@@ -14,8 +14,10 @@ import { setupUpdaterIPC } from '~/features/updater'
 import { setupPluginIPC } from '~/plugins'
 import { setupReportIPC } from '~/reports'
 import { setupEventBusIPC } from '../events'
+import { setupBangumiTokenIPC } from './bangumiToken'
 
 export function setupIPC(): void {
+  setupBangumiTokenIPC()
   setupAccountIPC()
   setupAdderIPC()
   setupDatabaseIPC()

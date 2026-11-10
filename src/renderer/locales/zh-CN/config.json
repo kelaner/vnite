@@ -453,6 +453,19 @@
       "cacheDescriptionImages": "缓存简介内图片到本地",
       "cacheDescriptionImagesDescription": "将游戏简介中的图片下载并缓存到本地，以实现离线查看和加快加载速度"
     },
+    "bangumi": {
+      "title": "Bangumi 设置",
+      "description": "使用个人访问令牌获取受限内容。请先在 Bangumi 设置中启用受限内容。令牌仅存储在本机，不会同步。",
+      "getToken": "获取个人访问令牌",
+      "token": "个人访问令牌",
+      "configured": "已设置令牌",
+      "notConfigured": "尚未设置令牌",
+      "loading": "正在读取令牌状态…",
+      "unavailable": "本机安全存储不可用，无法保存令牌。",
+      "save": "保存",
+      "clear": "清除",
+      "error": "令牌操作失败，请重试。"
+    },
     "vndb": {
       "title": "VNDB 设置",
       "tagSpoilerLevel": "标签剧透级别",

@@ -453,6 +453,19 @@
       "cacheDescriptionImages": "Cache Description Images",
       "cacheDescriptionImagesDescription": "Download and cache images in game descriptions locally for offline viewing and faster loading"
     },
+    "bangumi": {
+      "title": "Bangumi Settings",
+      "description": "Use a personal access token to access restricted content. Enable restricted content in your Bangumi settings first. The token is stored locally and is not synced.",
+      "getToken": "Get a personal access token",
+      "token": "Personal access token",
+      "configured": "Token configured",
+      "notConfigured": "No token configured",
+      "loading": "Loading token status…",
+      "unavailable": "Secure storage is unavailable on this device; the token cannot be saved.",
+      "save": "Save",
+      "clear": "Clear",
+      "error": "Token operation failed. Please try again."
+    },
     "vndb": {
       "title": "VNDB Settings",
       "tagSpoilerLevel": "Tag Spoiler Level",
