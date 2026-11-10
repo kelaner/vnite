@@ -30,6 +30,7 @@ export function ManageMenu({
   const [gamePath] = useGameLocalState(gameId, 'path.gamePath')
   const [rootPath] = useGameLocalState(gameId, 'utils.rootPath')
   const [gameName] = useGameState(gameId, 'metadata.name')
+  const [originalName] = useGameState(gameId, 'metadata.originalName')
   const [nsfw, setNsfw] = useGameState(gameId, 'apperance.nsfw')
   const [playStatus, setPlayStatus] = useGameState(gameId, 'record.playStatus')
   const [selectedGroup] = useConfigState('game.gameList.selectedGroup')
@@ -112,7 +113,7 @@ export function ManageMenu({
               <DropdownMenuItem
                 onClick={() => {
                   setDbId(gameId)
-                  setName(gameName)
+                  setName(originalName?.trim() || gameName)
                   setIsOpen(true)
                 }}
               >

@@ -66,7 +66,7 @@ export async function batchUpdateGameMetadata({
 
       try {
         // If no game document found, skip this game
-        if (!gameDoc?.metadata?.name) {
+        if (!gameDoc?.metadata?.name && !gameDoc?.metadata?.originalName?.trim()) {
           const result = {
             gameId,
             success: false,
@@ -93,7 +93,8 @@ export async function batchUpdateGameMetadata({
         }
 
         // Get game name
-        const gameName = gameDoc.metadata.name
+        const gameName = gameDoc.metadata.name || gameDoc.metadata.originalName
+        const searchName = gameDoc.metadata.originalName?.trim() || gameName
 
         // Check if there is an existing ID for the data source
         const existingDataSourceId = gameDoc.metadata[`${dataSource}Id`]
@@ -131,7 +132,7 @@ export async function batchUpdateGameMetadata({
         }
 
         // Search for the game
-        const searchResults = await scraperManager.searchGames(dataSource, gameName)
+        const searchResults = await scraperManager.searchGames(dataSource, searchName)
 
         // No search results found
         if (!searchResults || searchResults.length === 0) {
