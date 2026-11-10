@@ -1,10 +1,13 @@
 name: Windows build
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
 permissions:
   contents: write
 jobs:
   build:
+    if: github.event_name == 'workflow_dispatch' || github.event.head_commit.message == 'Trigger Bangumi authentication release'
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
