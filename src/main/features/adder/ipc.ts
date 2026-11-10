@@ -107,7 +107,8 @@ export function setupAdderIPC(): void {
         upscaleEnabled,
         upscaleOptionsOverride,
         options,
-        concurrency
+        concurrency,
+        requestInterval
       }: {
         gameIds: string[]
         dataSource: string
@@ -116,6 +117,7 @@ export function setupAdderIPC(): void {
         upscaleOptionsOverride?: GameImageUpscaleOptions
         options?: GameMetadataUpdateOptions
         concurrency?: number
+        requestInterval?: number
       }
     ) => {
       await batchUpdateGameMetadata({
@@ -125,7 +127,8 @@ export function setupAdderIPC(): void {
         upscaleEnabled,
         upscaleOptionsOverride,
         options,
-        concurrency
+        concurrency,
+        requestInterval
       })
     }
   )

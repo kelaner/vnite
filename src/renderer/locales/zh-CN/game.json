@@ -831,6 +831,8 @@
       "append": "追加",
       "concurrency": "并发数: {{count}}",
       "concurrencyDescription": "并发数越高，处理速度越快，但可能会导致请求失败",
+      "requestInterval": "游戏更新启动间隔：{{count}} 秒",
+      "requestIntervalDescription": "控制相邻游戏更新的启动间隔；单个游戏内部仍可能发送多个请求。建议并发数设为 1。",
       "progress": "总进度: {{completed}}%",
       "progressCount": "{{current}}/{{total}}",
       "successful": "成功: {{count}}",

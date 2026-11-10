@@ -34,7 +34,8 @@ export async function batchUpdateGameMetadata({
   upscaleEnabled,
   upscaleOptionsOverride,
   options = {},
-  concurrency = 5
+  concurrency = 5,
+  requestInterval = 0
 }: {
   gameIds: string[]
   dataSource: string
@@ -43,6 +44,7 @@ export async function batchUpdateGameMetadata({
   upscaleOptionsOverride?: GameImageUpscaleOptions
   options?: GameMetadataUpdateOptions
   concurrency?: number
+  requestInterval?: number
 }): Promise<BatchUpdateResults> {
   try {
     // Prepare the results object
@@ -59,12 +61,11 @@ export async function batchUpdateGameMetadata({
 
     // Process a single game
     const processGame = async (gameId: string): Promise<BatchUpdateResult> => {
-      // Get game document
-      const gameDoc = await GameDBManager.getGame(gameId)
-
+      let gameDoc: Awaited<ReturnType<typeof GameDBManager.getGame>> | undefined
       current++
 
       try {
+        gameDoc = await GameDBManager.getGame(gameId)
         // If no game document found, skip this game
         if (!gameDoc?.metadata?.name && !gameDoc?.metadata?.originalName?.trim()) {
           const result = {
@@ -228,13 +229,22 @@ export async function batchUpdateGameMetadata({
       let successful = 0
       let failed = 0
 
-      // Process games in batches
+      // Space the start of each game update, including across batch boundaries.
+      const interval = Number.isFinite(requestInterval)
+        ? Math.max(0, Math.min(requestInterval, 60000))
+        : 0
+      let lastStart = 0
       for (let i = 0; i < gameIds.length; i += concurrency) {
         const batch = gameIds.slice(i, i + concurrency)
-
-        // Create processing tasks, passing in game ID and index
-        const batchPromises = batch.map((gameId) => processGame(gameId))
-
+        let startGate = Promise.resolve()
+        const batchPromises = batch.map((gameId) => {
+          startGate = startGate.then(async () => {
+            const wait = Math.max(0, lastStart + interval - Date.now())
+            if (lastStart && wait) await new Promise((resolve) => setTimeout(resolve, wait))
+            lastStart = Date.now()
+          })
+          return startGate.then(() => processGame(gameId))
+        })
         const batchResults = await Promise.all(batchPromises)
 
         // Process results

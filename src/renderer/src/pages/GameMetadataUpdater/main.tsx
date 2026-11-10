@@ -57,7 +57,8 @@ export function GameMetadataUpdaterDialog(): React.JSX.Element {
     updateImages: true,
     mergeStrategy: 'replace'
   })
-  const [concurrency, setConcurrency] = useState<number>(5)
+  const [concurrency, setConcurrency] = useState<number>(1)
+  const [requestInterval, setRequestInterval] = useState<number>(2)
   const [isUpdating, setIsUpdating] = useState<boolean>(false)
   const [availableDataSources, setAvailableDataSources] = useState<
     { id: string; name: string; capabilities: ScraperCapabilities[] }[]
@@ -271,7 +272,8 @@ export function GameMetadataUpdaterDialog(): React.JSX.Element {
         fields: selectedFields,
         upscaleEnabled: enableUpscale,
         options,
-        concurrency
+        concurrency,
+        requestInterval: requestInterval * 1000
       }
 
       await ipcManager.invoke('adder:batch-update-game-metadata', params)
@@ -417,6 +419,25 @@ export function GameMetadataUpdaterDialog(): React.JSX.Element {
                 label={t('detail.properties.media.actions.upscaleImage')}
                 disabled={isUpdating}
               />
+
+              {isBatchMode && (
+                <div className="grid gap-2">
+                  <Label htmlFor="requestInterval">
+                    {t('updater.dialog.requestInterval', { count: requestInterval })}
+                  </Label>
+                  <Slider
+                    id="requestInterval"
+                    min={0}
+                    max={60}
+                    step={1}
+                    value={[requestInterval]}
+                    onValueChange={([val]) => setRequestInterval(val)}
+                  />
+                  <span className="text-xs text-muted-foreground">
+                    {t('updater.dialog.requestIntervalDescription')}
+                  </span>
+                </div>
+              )}
 
               {/* Concurrency settings in batch mode */}
               {isBatchMode && (

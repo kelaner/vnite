@@ -251,6 +251,7 @@ type MainIpcEvents =
         upscaleOptionsOverride?: GameImageUpscaleOptions
         options?: GameMetadataUpdateOptions
         concurrency?: number
+        requestInterval?: number
       }) => void
 
       'importer:import-v2-data': (dataPath: string) => void

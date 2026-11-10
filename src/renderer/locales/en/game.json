@@ -831,6 +831,8 @@
       "append": "Append",
       "concurrency": "Concurrency: {{count}}",
       "concurrencyDescription": "Higher concurrency means faster processing but may lead to failed requests",
+      "requestInterval": "Interval between game updates: {{count}} seconds",
+      "requestIntervalDescription": "Spaces the start of each game update; a single game may still make multiple requests. Concurrency 1 is recommended.",
       "progress": "Progress: {{completed}}%",
       "progressCount": "{{current}}/{{total}}",
       "successful": "Successful: {{count}}",
