@@ -2,6 +2,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@u
 import { ScrollArea } from '@ui/scroll-area'
 import { useTranslation } from 'react-i18next'
 import { LazyLoadComponent, trackWindowScroll } from 'react-lazy-load-image-component'
+import { GameSelectionProvider } from '~/components/GameBatchEditor/GameSelectionProvider'
 import { useConfigState } from '~/hooks'
 import { sortGames, useVisibleGameIds } from '~/stores/game'
 import { useGameRegistry } from '~/stores/game/gameRegistry'
@@ -54,18 +55,23 @@ function ScoreSourceGamesComponent({
               </div>
             </AccordionTrigger>
             <AccordionContent className={cn('rounded-none pt-1 flex flex-col gap-1')}>
-              {sortGames(sort, gameIds).map((game) => (
-                <LazyLoadComponent
-                  key={game}
-                  threshold={300}
-                  scrollPosition={scrollPosition}
-                  placeholder={
-                    <PlaceHolder gameId={game} groupId={`record.scoreSource:${field}`} />
-                  }
-                >
-                  <GameNav gameId={game} groupId={`record.scoreSource:${field}`} />
-                </LazyLoadComponent>
-              ))}
+              <GameSelectionProvider
+                scopeId={`sidebar:record.scoreSource:${field}`}
+                orderedGameIds={sortGames(sort, gameIds)}
+              >
+                {sortGames(sort, gameIds).map((game) => (
+                  <LazyLoadComponent
+                    key={game}
+                    threshold={300}
+                    scrollPosition={scrollPosition}
+                    placeholder={
+                      <PlaceHolder gameId={game} groupId={`record.scoreSource:${field}`} />
+                    }
+                  >
+                    <GameNav gameId={game} groupId={`record.scoreSource:${field}`} />
+                  </LazyLoadComponent>
+                ))}
+              </GameSelectionProvider>
             </AccordionContent>
           </AccordionItem>
         ))}
