@@ -9,6 +9,7 @@ import { ReportExportRequest, ReportExportResponse } from '@appTypes/report'
 import { BatchUpdateGameMetadataProgress, OverallScanProgress } from '@appTypes/utils'
 import { ProgressInfo, UpdateCheckResult } from 'electron-updater'
 import type { GameMediaType, LauncherPresetApplyResult } from './models'
+import type { MonitorStatus } from './monitor'
 import { BatchGameInfo, configDocs, configLocalDocs, gameDoc, GameTimerStatus } from './models'
 import { GameDatabaseStorageDetail, LocalDatabaseStorageReport } from './models/databaseInspector'
 import {
@@ -67,11 +68,6 @@ type MainIpcEvents =
 
       'launcher:start-game': [gameId: string]
 
-      'native-monitor:update-local-game': [gameId: string]
-      'system:change-process-monitor': [monitor: 'new' | 'legacy']
-      'system:change-foreground-timer': [isEnabled: boolean]
-      'system:change-foreground-timer-wait-time': [waitTime: number]
-
       // Database phase events
       'db:games-loaded': []
     }
@@ -80,6 +76,7 @@ type MainIpcEvents =
       'bangumi-token:get-status': () => { available: boolean; configured: boolean }
       'bangumi-token:set': (token: string) => void
       'bangumi-token:clear': () => void
+      'monitor:get-status': () => MonitorStatus
 
       'system:select-path-dialog': (
         properties: NonNullable<Electron.OpenDialogOptions['properties']>,
@@ -309,6 +306,7 @@ type MainIpcEvents =
       }[]
 
       // Theme events
+      'theme:set-mode': (mode: 'system' | 'dark' | 'light') => void
       'theme:save': (cssContent: string) => void
       'theme:load': () => string | null
       'theme:select-preset': (preset: string) => string
@@ -480,6 +478,7 @@ type RendererIpcEvents = {
   'plugin:update-plugin-stats': [stats: PluginStatsData]
 
   'monitor:timer-status-change': [gameTimerStatus: GameTimerStatus[]]
+  'monitor:status-changed': [status: MonitorStatus]
 }
 
 // Export types for use in both main and renderer
